@@ -15,6 +15,7 @@ export default class MyDocument extends Document {
             name="theme-color"
             content={MyTheme("light").palette.primary[100]}
           />
+          <title>Movify - Challenge</title>
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
