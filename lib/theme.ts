@@ -1,5 +1,5 @@
 import { PaletteMode } from "@mui/material";
-import { amber, deepOrange, grey } from "@mui/material/colors";
+import { teal, grey } from "@mui/material/colors";
 
 const MyTheme = (mode: PaletteMode) => ({
   palette: {
@@ -7,10 +7,10 @@ const MyTheme = (mode: PaletteMode) => ({
     ...(mode === "light"
       ? {
           // palette values for light mode
-          primary: amber,
-          secondary: amber,
-          main: amber,
-          divider: amber[200],
+          primary: teal,
+          secondary: teal,
+          main: teal,
+          divider: teal[200],
           text: {
             primary: grey[900],
             secondary: grey[800],
@@ -18,16 +18,16 @@ const MyTheme = (mode: PaletteMode) => ({
         }
       : {
           // palette values for dark mode
-          primary: deepOrange,
-          secondary: deepOrange,
-          main: deepOrange,
-          divider: deepOrange[700],
+          primary: grey,
+          secondary: grey,
+          main: grey,
+          divider: grey[700],
           background: {
-            default: deepOrange[900],
-            paper: deepOrange[900],
+            default: grey[900],
+            paper: grey[900],
           },
           text: {
-            primary: "#fff",
+            primary: "#ddd",
             secondary: grey[500],
           },
         }),

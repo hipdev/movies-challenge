@@ -6,10 +6,13 @@ import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import MailIcon from "@mui/icons-material/Mail";
 import Container from "@mui/material/Container";
 import { useContext } from "react";
 import { ColorModeContext } from "../../pages/_app";
+import { useTheme } from "@mui/material/styles";
+import { Theme } from "@mui/system";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -53,6 +56,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function PrimarySearchAppBar() {
   const colorMode = useContext(ColorModeContext);
+  const theme: Theme = useTheme();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -83,7 +88,11 @@ export default function PrimarySearchAppBar() {
                 color="inherit"
                 onClick={colorMode.toggleColorMode}
               >
-                <MailIcon />
+                {theme.palette.mode == "light" ? (
+                  <DarkModeIcon />
+                ) : (
+                  <LightModeIcon />
+                )}
               </IconButton>
             </Box>
           </Toolbar>
