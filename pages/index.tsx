@@ -3,8 +3,8 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import ProTip from "src/ProTip";
 import Link from "src/Link";
-import Header from "components/layout/header";
-import Layout from "components/Layout2/Layout";
+import Header from "components/Layout/header";
+import Layout from "components/Layout/Layout";
 
 export default function Index() {
   return (
