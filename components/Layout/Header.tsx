@@ -14,7 +14,7 @@ import { Theme } from "@mui/system";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
-import { Drawer } from "@mui/material";
+import DrawerNewMovie from "./DrawerNewMovie";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -68,13 +68,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Drawer
-        anchor={"right"}
-        open={openDrawer}
-        onClose={() => toggleDrawer(false)}
-      >
-        hola
-      </Drawer>
+      <DrawerNewMovie openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
 
       <AppBar position="static">
         <Container>
