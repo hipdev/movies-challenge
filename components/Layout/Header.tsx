@@ -1,3 +1,4 @@
+import { useContext, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -7,13 +8,13 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import Container from "@mui/material/Container";
-import { useContext } from "react";
 import { ColorModeContext } from "../../pages/_app";
 import { useTheme } from "@mui/material/styles";
 import { Theme } from "@mui/system";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
-import { AccountCircle } from "@mui/icons-material";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
+import { Drawer } from "@mui/material";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -59,8 +60,22 @@ export default function PrimarySearchAppBar() {
   const colorMode = useContext(ColorModeContext);
   const theme: Theme = useTheme();
 
+  const [openDrawer, setOpenDrawer] = useState(false);
+
+  const toggleDrawer = (value: boolean) => {
+    setOpenDrawer(value);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
+      <Drawer
+        anchor={"right"}
+        open={openDrawer}
+        onClose={() => toggleDrawer(false)}
+      >
+        hola
+      </Drawer>
+
       <AppBar position="static">
         <Container>
           <Toolbar>
@@ -86,11 +101,13 @@ export default function PrimarySearchAppBar() {
               <IconButton
                 size="large"
                 edge="end"
-                aria-label="account of current user"
+                aria-label="Add a new movie"
                 aria-haspopup="true"
                 color="inherit"
+                sx={{ marginRight: "10px" }}
+                onClick={() => toggleDrawer(true)}
               >
-                <AccountCircle />
+                <ControlPointIcon />
               </IconButton>
               <IconButton
                 size="large"
