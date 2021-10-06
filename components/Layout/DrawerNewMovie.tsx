@@ -6,9 +6,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import { FormEvent } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Theme } from "@mui/system";
+import { addNewMovie } from "lib/queries/movies";
 
 type Props = {
   openDrawer: boolean;
@@ -18,9 +19,29 @@ type Props = {
 const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
   const theme: Theme = useTheme();
 
-  const handleSubmit = (event: FormEvent) => {
+  const [dataForm, setDataForm] = useState({
+    title: "",
+    description: "",
+    year: "",
+    picture: null,
+  });
+
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log("enviando form");
+    console.log(dataForm, "sending form");
+    const res = await addNewMovie(dataForm);
+    if (res) {
+      toggleDrawer(false);
+    }
+  };
+
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement> & ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setDataForm({
+      ...dataForm,
+      [event.target.name]: event.target.value,
+    });
   };
 
   return (
@@ -40,16 +61,22 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
           <Typography variant="h5" gutterBottom component="div">
             Add new movie
           </Typography>
+
           <TextField
             id="outlined-basic"
             label="Movie name"
             variant="outlined"
             margin="dense"
             required
+            value={dataForm.title}
+            name="title"
+            onChange={handleInputChange}
           />
+
           <TextareaAutosize
             aria-label="Movie description"
             placeholder="Movie description"
+            value={dataForm.description}
             style={{
               width: 300,
               background: "transparent",
@@ -60,8 +87,11 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
               marginBottom: "0.7rem",
               color: theme.palette.mode == "light" ? "inherit" : "#ddd",
             }}
+            name="description"
+            onChange={handleInputChange}
             required
           />
+
           <TextField
             id="outlined-basic"
             label="Year"
@@ -70,8 +100,12 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
             margin="dense"
             inputProps={{ min: "1900", max: "2022" }}
             placeholder="Ex: 2010"
+            name="year"
+            value={dataForm.year}
+            onChange={handleInputChange}
             required
           />
+
           <Button
             variant="outlined"
             component="label"
