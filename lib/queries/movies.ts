@@ -1,14 +1,28 @@
 import { supabase } from "lib/supabase-client";
 import { Movie } from "types/movie";
 
-export async function addNewMovie(data: Movie) {
-  let { error } = await supabase
+export async function addNewMovie(dataForm: Movie) {
+  const { data: newMovie, error } = await supabase
     .from("movies")
-    .insert(data, { returning: "minimal" }); // Avoid a select call after creation
+    .insert(dataForm);
 
   if (error) {
     throw new Error(error.message);
   }
 
-  return true;
+  return newMovie;
+}
+
+export async function getMovies(_key: string) {
+  const { data, error } = await supabase
+    .from("movies")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(5);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return data?.length == 0 ? null : data;
 }

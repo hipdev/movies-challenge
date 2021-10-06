@@ -10,6 +10,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import { Theme } from "@mui/system";
 import { addNewMovie } from "lib/queries/movies";
+import { mutate } from "swr";
 
 type Props = {
   openDrawer: boolean;
@@ -28,10 +29,18 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    console.log(dataForm, "sending form");
-    const res = await addNewMovie(dataForm);
-    if (res) {
+
+    const newMovie = await addNewMovie(dataForm);
+
+    if (newMovie) {
       toggleDrawer(false);
+      mutate(
+        "getMovies",
+        (data: []) => {
+          return [newMovie[0], ...data];
+        },
+        false
+      );
     }
   };
 

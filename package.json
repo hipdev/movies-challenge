@@ -13,7 +13,8 @@
     "clsx": "latest",
     "next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "swr": "^1.0.1"
   },
   "scripts": {
     "dev": "next",
