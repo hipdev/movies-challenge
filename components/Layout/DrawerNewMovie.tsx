@@ -1,4 +1,5 @@
 import {
+  Alert,
   Button,
   Drawer,
   TextareaAutosize,
@@ -24,13 +25,42 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
     title: "",
     description: "",
     year: "",
-    picture: null,
   });
+
+  const [picture, setPicture] = useState(null);
+  const [errorPicture, setErrorPicture] = useState(false);
+
+  const handleInputChange = (
+    event: ChangeEvent<HTMLInputElement> & ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setDataForm({
+      ...dataForm,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handlePicture = (e: ChangeEvent<HTMLInputElement> & DragEvent) => {
+    let files: any;
+    if (e.dataTransfer) {
+      // usefull for DragAndDrop files
+      files = e.dataTransfer.files;
+    } else if (e.target) {
+      // normal input file
+      files = e.target.files;
+    }
+
+    setPicture(files[0]);
+  };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
 
-    const newMovie = await addNewMovie(dataForm);
+    if (!picture) {
+      setErrorPicture(true);
+      return;
+    }
+
+    const newMovie = await addNewMovie({ ...dataForm, picture });
 
     if (newMovie) {
       toggleDrawer(false);
@@ -42,15 +72,6 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
         false
       );
     }
-  };
-
-  const handleInputChange = (
-    event: ChangeEvent<HTMLInputElement> & ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    setDataForm({
-      ...dataForm,
-      [event.target.name]: event.target.value,
-    });
   };
 
   return (
@@ -121,9 +142,18 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
             style={{ marginTop: "0.7rem" }}
           >
             Movie picture
-            <input type="file" hidden />
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handlePicture}
+            />
           </Button>
-
+          {errorPicture && (
+            <Alert sx={{ marginTop: "1rem" }} severity="error">
+              Please add a picture for the movie
+            </Alert>
+          )}
           <Button
             variant="contained"
             component="button"

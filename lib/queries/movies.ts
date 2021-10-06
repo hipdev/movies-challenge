@@ -2,15 +2,22 @@ import { supabase } from "lib/supabase-client";
 import { Movie } from "types/movie";
 
 export async function addNewMovie(dataForm: Movie) {
-  const { data: newMovie, error } = await supabase
+  const { data: newPicture, error: errorPicture } = await supabase.storage
     .from("movies")
-    .insert(dataForm);
+    .upload(`public/${dataForm.title}.png`, dataForm.picture);
 
-  if (error) {
-    throw new Error(error.message);
+  if (errorPicture) {
+    throw new Error(errorPicture.message);
+  } else {
+    const { data: newMovie, error } = await supabase
+      .from("movies")
+      .insert({ ...dataForm, picture: newPicture?.Key });
+
+    if (error) {
+      throw new Error(error.message);
+    }
+    return newMovie;
   }
-
-  return newMovie;
 }
 
 export async function getMovies(_key: string) {

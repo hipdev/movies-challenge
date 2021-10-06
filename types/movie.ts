@@ -4,5 +4,12 @@ export type Movie = {
   title: string;
   description: string;
   year: string;
-  picture: string | null;
+  picture:
+    | File
+    | Blob
+    | ArrayBuffer
+    | ArrayBufferView
+    | Buffer
+    | FormData
+    | NodeJS.ReadableStream;
 };

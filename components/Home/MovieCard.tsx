@@ -13,8 +13,8 @@ const MovieCard = ({ movie }: { movie?: Movie }) => {
         <CardActionArea>
           <CardMedia
             component="img"
-            height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
+            height="240"
+            image={`https://gmscppgyvozrsjrmyftk.supabase.in/storage/v1/object/public/${movie?.picture}`}
             alt="green iguana"
           />
           <CardContent>
