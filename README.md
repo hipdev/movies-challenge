@@ -1,43 +1,45 @@
-# Next.js with TypeScript example
+# Movies Challenge
 
-## How to use
+Movies challenge with cache and pagination using REST.
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
+## Stack
 
-<!-- #default-branch-switch -->
+Next.js, Material UI, Supabase(PostgreSQL) and SWR.
 
-```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/master | tar -xz --strip=2  material-ui-master/examples/nextjs-with-typescript
-cd nextjs-with-typescript
-```
+### Run locally `using npm`
 
-Install it and run:
+Install with [`npm`](https://nextjs.org/docs/api-reference/create-next-app) ,then run it and check your browser here localhost:3000 :)
 
-```sh
+```bash
 npm install
+# then
 npm run dev
 ```
 
-or:
+### Download project
 
-<!-- #default-branch-switch -->
+You can use git or github:
 
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/master/examples/nextjs-with-typescript)
+```bash
+git clone https://github.com/hipdev/movies-challenge.git
+```
 
-## The idea behind the example
+or
 
-The project uses [Next.js](https://github.com/zeit/next.js), which is a framework for server-rendered React apps.
-It includes `@mui/material` and its peer dependencies, including `emotion`, the default style engine in MUI v5. If you prefer, you can [use styled-components instead](https://mui.com/guides/interoperability/#styled-components).
+```bash
+gh repo clone hipdev/movies-challenge
+```
 
-## The link component
+### Add .env.local file in the root of the project with these supabase variables
 
-Next.js has [a custom Link component](https://nextjs.org/docs/api-reference/next/link).
-The example folder provides adapters for usage with MUI.
-More information [in the documentation](https://mui.com/guides/routing/#next-js).
+```bash
+NEXT_PUBLIC_SUPABASE_URL='supabaseurl'
+NEXT_PUBLIC_SUPABASE_ANON_KEY='supabaseanonkey'
+```
 
-## What's next?
+### Fun facts
 
-<!-- #default-branch-switch -->
+Searching is also with pagination, try searching like --> The... 😲 \
+Running with Vercel --> [`Deployment`](https://mh-woad.vercel.app/) \
 
-You now have a working example project.
-You can head back to the documentation, continuing browsing it from the [templates](https://mui.com/getting-started/templates/) section.
+MIT License
