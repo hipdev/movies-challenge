@@ -2,13 +2,15 @@ import { Container, Pagination } from '@mui/material'
 import MoviesList from 'components/Home/MoviesList'
 import Layout from 'components/Layout/Layout'
 import { getTotalPagesFromMovies } from 'lib/queries/movies'
+import { useRouter } from 'next/router'
 import { ChangeEvent, useState } from 'react'
 import useSWR from 'swr'
 
-export default function Index() {
+export default function SearchPage() {
+  const router = useRouter()
   const [page, setPage] = useState(1)
   const { data: totalPags } = useSWR(
-    'getTotalPagesFromMovies',
+    ['getTotalPagesFromMovies', router.query.query],
     getTotalPagesFromMovies,
     {
       revalidateOnFocus: false,
@@ -23,8 +25,8 @@ export default function Index() {
   }
 
   return (
-    <Layout>
-      <MoviesList page={page} />
+    <Layout searchWord={router.query.query}>
+      <MoviesList page={page} searchWord={router.query.query} />
       <Container maxWidth="sm">
         <Pagination
           sx={{

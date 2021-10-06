@@ -1,9 +1,9 @@
 export type Movie = {
-  id?: string;
-  created_at?: Date;
-  title: string;
-  description: string;
-  year: string;
+  id?: string
+  created_at?: Date
+  title: string
+  description: string
+  year: string
   picture:
     | File
     | Blob
@@ -11,5 +11,5 @@ export type Movie = {
     | ArrayBufferView
     | Buffer
     | FormData
-    | NodeJS.ReadableStream;
-};
+    | NodeJS.ReadableStream
+}

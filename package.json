@@ -2,6 +2,21 @@
   "name": "nextjs-with-typescript",
   "version": "5.0.0",
   "private": true,
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ],
+    "**/*.{md,mdx,json}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@emotion/cache": "latest",
     "@emotion/react": "latest",
@@ -21,13 +36,17 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest",
+    "prettier-fix": "prettier --write ."
   },
   "devDependencies": {
     "@types/lodash.debounce": "^4.0.6",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "husky": "7.0.2",
+    "lint-staged": "11.2.0",
+    "prettier": "2.4.1",
     "typescript": "latest"
   }
 }

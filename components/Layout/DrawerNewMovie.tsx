@@ -5,30 +5,30 @@ import {
   TextareaAutosize,
   TextField,
   Typography,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { ChangeEvent, FormEvent, useState } from "react";
-import { useTheme } from "@mui/material/styles";
-import { Theme } from "@mui/system";
-import { addNewMovie } from "lib/queries/movies";
-import { mutate } from "swr";
+} from '@mui/material'
+import { Box } from '@mui/system'
+import { ChangeEvent, FormEvent, useState } from 'react'
+import { useTheme } from '@mui/material/styles'
+import { Theme } from '@mui/system'
+import { addNewMovie } from 'lib/queries/movies'
+import { mutate } from 'swr'
 
 type Props = {
-  openDrawer: boolean;
-  toggleDrawer: (value: boolean) => void;
-};
+  openDrawer: boolean
+  toggleDrawer: (value: boolean) => void
+}
 
 const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
-  const theme: Theme = useTheme();
+  const theme: Theme = useTheme()
 
   const [dataForm, setDataForm] = useState({
-    title: "",
-    description: "",
-    year: "",
-  });
+    title: '',
+    description: '',
+    year: '',
+  })
 
-  const [picture, setPicture] = useState(null);
-  const [errorPicture, setErrorPicture] = useState(false);
+  const [picture, setPicture] = useState(null)
+  const [errorPicture, setErrorPicture] = useState(false)
 
   const handleInputChange = (
     event: ChangeEvent<HTMLInputElement> & ChangeEvent<HTMLTextAreaElement>
@@ -36,56 +36,56 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
     setDataForm({
       ...dataForm,
       [event.target.name]: event.target.value,
-    });
-  };
+    })
+  }
 
   const handlePicture = (e: ChangeEvent<HTMLInputElement> & DragEvent) => {
-    let files: any;
+    let files: any
     if (e.dataTransfer) {
       // usefull for DragAndDrop files
-      files = e.dataTransfer.files;
+      files = e.dataTransfer.files
     } else if (e.target) {
       // normal input file
-      files = e.target.files;
+      files = e.target.files
     }
 
-    setPicture(files[0]);
-  };
+    setPicture(files[0])
+  }
 
   const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
+    event.preventDefault()
 
     if (!picture) {
-      setErrorPicture(true);
-      return;
+      setErrorPicture(true)
+      return
     }
 
-    const newMovie = await addNewMovie({ ...dataForm, picture });
+    const newMovie = await addNewMovie({ ...dataForm, picture })
 
     if (newMovie) {
-      toggleDrawer(false);
+      toggleDrawer(false)
       mutate(
-        "getMovies",
+        'getMovies',
         (data: []) => {
-          return [newMovie[0], ...data];
+          return [newMovie[0], ...data]
         },
         false
-      );
+      )
     }
-  };
+  }
 
   return (
     <Drawer
-      anchor={"right"}
+      anchor={'right'}
       open={openDrawer}
       onClose={() => toggleDrawer(false)}
     >
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            padding: "1rem",
+            display: 'flex',
+            flexDirection: 'column',
+            padding: '1rem',
           }}
         >
           <Typography variant="h5" gutterBottom component="div">
@@ -109,13 +109,13 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
             value={dataForm.description}
             style={{
               width: 300,
-              background: "transparent",
-              padding: "1rem",
-              borderRadius: "3px",
-              fontSize: "16px",
-              marginTop: "0.7rem",
-              marginBottom: "0.7rem",
-              color: theme.palette.mode == "light" ? "inherit" : "#ddd",
+              background: 'transparent',
+              padding: '1rem',
+              borderRadius: '3px',
+              fontSize: '16px',
+              marginTop: '0.7rem',
+              marginBottom: '0.7rem',
+              color: theme.palette.mode == 'light' ? 'inherit' : '#ddd',
             }}
             name="description"
             onChange={handleInputChange}
@@ -128,7 +128,7 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
             variant="outlined"
             type="number"
             margin="dense"
-            inputProps={{ min: "1900", max: "2022" }}
+            inputProps={{ min: '1900', max: '2022' }}
             placeholder="Ex: 2010"
             name="year"
             value={dataForm.year}
@@ -139,7 +139,7 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
           <Button
             variant="outlined"
             component="label"
-            style={{ marginTop: "0.7rem" }}
+            style={{ marginTop: '0.7rem' }}
           >
             Movie picture
             <input
@@ -150,7 +150,7 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
             />
           </Button>
           {errorPicture && (
-            <Alert sx={{ marginTop: "1rem" }} severity="error">
+            <Alert sx={{ marginTop: '1rem' }} severity="error">
               Please add a picture for the movie
             </Alert>
           )}
@@ -158,14 +158,14 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
             variant="contained"
             component="button"
             type="submit"
-            style={{ marginTop: "2rem" }}
+            style={{ marginTop: '2rem' }}
           >
             Create movie
           </Button>
         </Box>
       </form>
     </Drawer>
-  );
-};
+  )
+}
 
-export default DrawerNewMovie;
+export default DrawerNewMovie

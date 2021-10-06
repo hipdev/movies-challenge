@@ -1,5 +1,5 @@
-import { AppBar, Container, Toolbar, Typography } from "@mui/material";
-import Link from "src/Link";
+import { AppBar, Container, Toolbar, Typography } from '@mui/material'
+import Link from 'src/Link'
 
 const Footer: React.FC = () => {
   return (
@@ -7,14 +7,14 @@ const Footer: React.FC = () => {
       <Container>
         <Toolbar>
           <Typography variant="body1" color="inherit">
-            With 💖 By{" "}
+            With 💖 By{' '}
             <Link
               underline="always"
               href="https://julianux.com"
               target="_blank"
               rel="noopener noreferrer"
               color="primary"
-              style={{ color: "#fff" }}
+              style={{ color: '#fff' }}
             >
               Julián David
             </Link>
@@ -22,7 +22,7 @@ const Footer: React.FC = () => {
         </Toolbar>
       </Container>
     </AppBar>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

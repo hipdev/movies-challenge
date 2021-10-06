@@ -1,9 +1,25 @@
-import Box from "@mui/material/Box";
-import { Container, Grid, Skeleton, Stack, Typography } from "@mui/material";
-import { Movie } from "types/movie";
-import MovieCard from "./MovieCard";
+import Box from '@mui/material/Box'
+import { Container, Grid, Skeleton, Stack, Typography } from '@mui/material'
+import { Movie } from 'types/movie'
+import MovieCard from './MovieCard'
+import { getMovies } from 'lib/queries/movies'
+import useSWR from 'swr'
 
-const MoviesList = ({ movies }: { movies: Movie[] | undefined | null }) => {
+const MoviesList = ({
+  page,
+  searchWord,
+}: {
+  page: number
+  searchWord?: string | string[] | undefined
+}) => {
+  const { data: movies } = useSWR(
+    ['getMovies', page, searchWord ? searchWord : null],
+    getMovies,
+    {
+      revalidateOnFocus: false,
+    }
+  )
+
   return (
     <Container>
       <Box sx={{ flexGrow: 1 }} mt={4} mb={10}>
@@ -25,7 +41,7 @@ const MoviesList = ({ movies }: { movies: Movie[] | undefined | null }) => {
                   sm={4}
                   md={4}
                   key={index}
-                  sx={{ display: "flex" }}
+                  sx={{ display: 'flex' }}
                 >
                   <Stack spacing={1}>
                     <Skeleton variant="rectangular" width={210} height={118} />
@@ -38,7 +54,7 @@ const MoviesList = ({ movies }: { movies: Movie[] | undefined | null }) => {
           )}
 
           {movies?.length == 0 && (
-            <Container sx={{ height: "100vh" }}>
+            <Container sx={{ height: '100vh' }}>
               <Typography variant="h5" gutterBottom component="div">
                 No results found
               </Typography>
@@ -47,6 +63,6 @@ const MoviesList = ({ movies }: { movies: Movie[] | undefined | null }) => {
         </Grid>
       </Box>
     </Container>
-  );
-};
-export default MoviesList;
+  )
+}
+export default MoviesList

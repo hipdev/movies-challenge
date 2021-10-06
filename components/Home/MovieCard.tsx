@@ -1,14 +1,14 @@
-import { Grid } from "@mui/material";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
-import { Movie } from "types/movie";
+import { Grid } from '@mui/material'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Typography from '@mui/material/Typography'
+import { CardActionArea } from '@mui/material'
+import { Movie } from 'types/movie'
 
 const MovieCard = ({ movie }: { movie?: Movie }) => {
   return (
-    <Grid item xs={2} sm={4} md={4}>
+    <Grid item xs={4} sm={4} md={4}>
       <Card sx={{ maxWidth: 345 }}>
         <CardActionArea>
           <CardMedia
@@ -18,16 +18,34 @@ const MovieCard = ({ movie }: { movie?: Movie }) => {
             alt="green iguana"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography
+              gutterBottom
+              variant="h5"
+              component="div"
+              sx={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
+            >
               {movie?.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                display: '-webkit-box',
+                WebkitLineClamp: 4,
+                WebkitBoxOrient: 'vertical',
+                overflow: 'hidden',
+              }}
+            >
               {movie?.description}
             </Typography>
           </CardContent>
         </CardActionArea>
       </Card>
     </Grid>
-  );
-};
-export default MovieCard;
+  )
+}
+export default MovieCard

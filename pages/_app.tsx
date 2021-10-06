@@ -1,42 +1,42 @@
-import { createContext, useMemo, useState } from "react";
-import { AppProps } from "next/app";
-import { createTheme, PaletteMode } from "@mui/material";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { CacheProvider, EmotionCache } from "@emotion/react";
-import MyTheme from "../lib/theme";
-import createEmotionCache from "../src/createEmotionCache";
-import "../styles/global.css";
+import { createContext, useMemo, useState } from 'react'
+import { AppProps } from 'next/app'
+import { createTheme, PaletteMode } from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline'
+import { CacheProvider, EmotionCache } from '@emotion/react'
+import MyTheme from '../lib/theme'
+import createEmotionCache from '../src/createEmotionCache'
+import '../styles/global.css'
 
 // Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createEmotionCache();
+const clientSideEmotionCache = createEmotionCache()
 
 interface MyAppProps extends AppProps {
-  emotionCache?: EmotionCache;
+  emotionCache?: EmotionCache
 }
 
-const ColorModeContext = createContext({ toggleColorMode: () => {} });
+const ColorModeContext = createContext({ toggleColorMode: () => {} })
 
-export { ColorModeContext };
+export { ColorModeContext }
 
 export default function MyApp(props: MyAppProps) {
-  const [mode, setMode] = useState<PaletteMode>("light");
-  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+  const [mode, setMode] = useState<PaletteMode>('light')
+  const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   const colorMode = useMemo(
     () => ({
       // The dark mode switch would invoke this method
       toggleColorMode: () => {
         setMode((prevMode: PaletteMode) =>
-          prevMode === "light" ? "dark" : "light"
-        );
+          prevMode === 'light' ? 'dark' : 'light'
+        )
       },
     }),
     []
-  );
+  )
 
   // Update the theme only if the mode changes
-  const theme = useMemo(() => createTheme(MyTheme(mode)), [mode]);
+  const theme = useMemo(() => createTheme(MyTheme(mode)), [mode])
 
   return (
     <CacheProvider value={emotionCache}>
@@ -48,5 +48,5 @@ export default function MyApp(props: MyAppProps) {
         </ThemeProvider>
       </ColorModeContext.Provider>
     </CacheProvider>
-  );
+  )
 }

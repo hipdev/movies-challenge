@@ -1,10 +1,10 @@
-import { PaletteMode } from "@mui/material";
-import { teal, grey } from "@mui/material/colors";
+import { PaletteMode } from '@mui/material'
+import { teal, grey } from '@mui/material/colors'
 
 const MyTheme = (mode: PaletteMode) => ({
   palette: {
     mode,
-    ...(mode === "light"
+    ...(mode === 'light'
       ? {
           // palette values for light mode
           primary: teal,
@@ -27,11 +27,11 @@ const MyTheme = (mode: PaletteMode) => ({
             paper: grey[900],
           },
           text: {
-            primary: "#ddd",
+            primary: '#ddd',
             secondary: grey[500],
           },
         }),
   },
-});
+})
 
-export default MyTheme;
+export default MyTheme
