@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box";
-import { Container, Grid, Skeleton, Stack } from "@mui/material";
+import { Container, Grid, Skeleton, Stack, Typography } from "@mui/material";
 import { Movie } from "types/movie";
 import MovieCard from "./MovieCard";
 
@@ -35,6 +35,14 @@ const MoviesList = ({ movies }: { movies: Movie[] | undefined | null }) => {
                 </Grid>
               ))}
             </Grid>
+          )}
+
+          {movies?.length == 0 && (
+            <Container sx={{ height: "100vh" }}>
+              <Typography variant="h5" gutterBottom component="div">
+                No results found
+              </Typography>
+            </Container>
           )}
         </Grid>
       </Box>

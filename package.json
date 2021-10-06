@@ -11,6 +11,7 @@
     "@mui/material": "latest",
     "@supabase/supabase-js": "^1.24.0",
     "clsx": "latest",
+    "lodash.debounce": "^4.0.8",
     "next": "latest",
     "react": "latest",
     "react-dom": "latest",
@@ -23,6 +24,7 @@
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
   },
   "devDependencies": {
+    "@types/lodash.debounce": "^4.0.6",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",

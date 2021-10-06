@@ -62,7 +62,7 @@ const DrawerNewMovie = ({ openDrawer, toggleDrawer }: Props) => {
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
-            display: { md: "flex" },
+            display: "flex",
             flexDirection: "column",
             padding: "1rem",
           }}

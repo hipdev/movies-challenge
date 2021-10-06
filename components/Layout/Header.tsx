@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { ChangeEvent, useCallback, useContext, useState } from "react";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -15,6 +15,9 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import DrawerNewMovie from "./DrawerNewMovie";
+import { supabase } from "lib/supabase-client";
+import debounce from "lodash.debounce";
+import { mutate } from "swr";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -66,6 +69,30 @@ export default function PrimarySearchAppBar() {
     setOpenDrawer(value);
   };
 
+  const handleSearch = useCallback(
+    debounce(async (e: ChangeEvent<HTMLInputElement>) => {
+      if (e.target.value != "") {
+        const { data } = await supabase
+          .from("movies")
+          .select("*")
+          .ilike("title", `%${e.target.value}%`)
+          .order("created_at", { ascending: false })
+          .limit(5);
+
+        mutate("getMovies", data, false);
+      } else {
+        const { data } = await supabase
+          .from("movies")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(5);
+
+        mutate("getMovies", data, false);
+      }
+    }, 1000),
+    []
+  );
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <DrawerNewMovie openDrawer={openDrawer} toggleDrawer={toggleDrawer} />
@@ -87,11 +114,12 @@ export default function PrimarySearchAppBar() {
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
+                onChange={handleSearch}
                 inputProps={{ "aria-label": "search" }}
               />
             </Search>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { md: "flex" } }}>
+            <Box sx={{ display: "flex" }}>
               <IconButton
                 size="large"
                 edge="end"
