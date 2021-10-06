@@ -82,21 +82,19 @@ export default function Header({
 
   useEffect(() => {
     setSearchText(searchWord)
-  }, [searchWord, router.query.query])
+  }, [searchWord, router.query])
 
-  const handleSearch = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value
-    setSearchText(e.target.value)
-
-    const search = debounce(async () => {
-      if (value != '') {
+  const handleSearch = useCallback(
+    debounce(async (e) => {
+      if (e.target.value != '') {
         router.push(`/search/${e.target.value}`)
       } else {
         router.push('/')
       }
-    }, 1000)
-    search()
-  }, [])
+    }, 1000),
+
+    []
+  )
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -122,7 +120,7 @@ export default function Header({
                 placeholder="Search…"
                 // value={searchText}
                 // defaultValue={searchText}
-                value={searchText ? searchText : ''}
+                defaultValue={searchText ? searchText : ''}
                 onChange={handleSearch}
                 inputProps={{ 'aria-label': 'search' }}
               />
