@@ -1,10 +1,4 @@
-import {
-  ChangeEvent,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { useCallback, useContext, useEffect, useState } from 'react'
 import { styled, alpha } from '@mui/material/styles'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -118,8 +112,6 @@ export default function Header({
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
-                // value={searchText}
-                // defaultValue={searchText}
                 defaultValue={searchText ? searchText : ''}
                 onChange={handleSearch}
                 inputProps={{ 'aria-label': 'search' }}
