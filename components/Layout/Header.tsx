@@ -17,6 +17,7 @@ import ControlPointIcon from '@mui/icons-material/ControlPoint'
 import DrawerNewMovie from './DrawerNewMovie'
 import debounce from 'lodash.debounce'
 import { useRouter } from 'next/router'
+import Link from 'src/Link'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -97,14 +98,17 @@ export default function Header({
       <AppBar position="static">
         <Container>
           <Toolbar>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ display: { xs: 'none', sm: 'block' } }}
+            <Link
+              href="/"
+              sx={{
+                display: { xs: 'none', sm: 'block' },
+                fontSize: '2rem',
+                textDecoration: 'none',
+              }}
+              color="inherit"
             >
               Movify
-            </Typography>
+            </Link>
 
             <Search>
               <SearchIconWrapper>
